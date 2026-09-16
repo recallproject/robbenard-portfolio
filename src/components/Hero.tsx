@@ -32,6 +32,39 @@ export default function Hero() {
     >
       <ParticleField />
       <div className="wrap hero-grid">
+        <div className="hero-portrait">
+          <motion.div
+            className="portrait-frame"
+            style={{
+              x: reduced ? 0 : magnet.x * 14,
+              y: reduced ? 0 : magnet.y * 10,
+            }}
+            transition={{ type: "spring", stiffness: 80, damping: 18 }}
+          >
+            <img
+              src="/images/hero-stethoscope.webp"
+              alt="Robert Benard, nurse practitioner, in a white coat with a stethoscope"
+              width={800}
+              height={1204}
+            />
+          </motion.div>
+          {CHIPS.map((chip) => (
+            <motion.span
+              key={chip.label}
+              className="float-chip"
+              style={{
+                left: chip.x,
+                top: chip.y,
+                x: reduced ? 0 : magnet.x * 22,
+                y: reduced ? 0 : magnet.y * 16,
+              }}
+              transition={{ type: "spring", stiffness: 60, damping: 16 }}
+            >
+              {chip.label}
+            </motion.span>
+          ))}
+        </div>
+
         <div className="hero-copy">
           <p className="hero-meta">
             <span>
@@ -59,39 +92,6 @@ export default function Hero() {
             One scroll, the whole story
             <i aria-hidden="true">↓</i>
           </a>
-        </div>
-
-        <div className="hero-portrait">
-          <motion.div
-            className="portrait-frame"
-            style={{
-              x: reduced ? 0 : magnet.x * 14,
-              y: reduced ? 0 : magnet.y * 10,
-            }}
-            transition={{ type: "spring", stiffness: 80, damping: 18 }}
-          >
-            <img
-              src="/images/hero-stethoscope.jpg"
-              alt="Robert Benard, nurse practitioner, in a white coat with a stethoscope"
-              width={1200}
-              height={1200}
-            />
-          </motion.div>
-          {CHIPS.map((chip) => (
-            <motion.span
-              key={chip.label}
-              className="float-chip"
-              style={{
-                left: chip.x,
-                top: chip.y,
-                x: reduced ? 0 : magnet.x * 22,
-                y: reduced ? 0 : magnet.y * 16,
-              }}
-              transition={{ type: "spring", stiffness: 60, damping: 16 }}
-            >
-              {chip.label}
-            </motion.span>
-          ))}
         </div>
       </div>
     </section>

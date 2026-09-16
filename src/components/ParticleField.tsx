@@ -111,7 +111,7 @@ export default function ParticleField({ target }: Props) {
           const b = points[j];
           const d = Math.hypot(a.x - b.x, a.y - b.y);
           if (d < linkDist) {
-            const alpha = (1 - d / linkDist) * 0.22;
+            const alpha = (1 - d / linkDist) * 0.34;
             ctx.strokeStyle = `rgba(16,18,15,${alpha})`;
             ctx.beginPath();
             ctx.moveTo(a.x * width, a.y * height);
@@ -133,9 +133,9 @@ export default function ParticleField({ target }: Props) {
       }
 
       for (const p of points) {
-        ctx.fillStyle = p.accent ? "#d9ff57" : "rgba(16,18,15,0.55)";
+        ctx.fillStyle = p.accent ? "#d9ff57" : "rgba(16,18,15,0.7)";
         ctx.beginPath();
-        ctx.arc(p.x * width, p.y * height, p.accent ? 2.4 : 1.5, 0, Math.PI * 2);
+        ctx.arc(p.x * width, p.y * height, p.accent ? 2.6 : 1.7, 0, Math.PI * 2);
         ctx.fill();
       }
 
