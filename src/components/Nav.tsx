@@ -1,81 +1,62 @@
-import { useEffect, useState } from "react";
+import { CONTACT, PERSON } from "../content";
+import Magnetic from "./Magnetic";
 
 const LINKS = [
-  { href: "#work", label: "Work" },
+  { href: "#bedside", label: "Story" },
+  { href: "#oversight", label: "Oversight" },
   { href: "#life", label: "Life" },
-  { href: "#about", label: "About" },
+  { href: "#contact", label: "Hello" },
 ];
 
-export default function Nav() {
-  const [progress, setProgress] = useState(0);
-  const [current, setCurrent] = useState("");
+type Props = {
+  active: string;
+  progress: number;
+};
 
-  useEffect(() => {
-    const ids = ["work", "life", "about", "contact"];
-    let ticking = false;
-
-    const update = () => {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(max > 0 ? window.scrollY / max : 0);
-      let next = "";
-      for (const id of ids) {
-        const el = document.getElementById(id);
-        if (el && el.getBoundingClientRect().top <= 120) next = id;
-      }
-      setCurrent(next);
-      ticking = false;
-    };
-
-    const onScroll = () => {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(update);
-      }
-    };
-
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, []);
-
-  const pct = Math.min(99, Math.round(progress * 100));
+export default function Nav({ active, progress }: Props) {
+  const current =
+    active === "hook" || active === "thesis"
+      ? "story"
+      : active === "oversight" || active === "build" || active === "experiments"
+        ? "oversight"
+        : active === "life"
+          ? "life"
+          : "hello";
 
   return (
-    <header className="topbar">
-      <div className="wrap topbar-inner">
-        <a className="brand" href="#top">
-          <span className="brand-mark" aria-hidden="true" />
-          Robert Benard
-        </a>
-        <nav aria-label="Primary">
-          {LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className={current === link.href.slice(1) ? "active" : undefined}
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
-        <div className="topbar-end">
-          <span className="scroll-pct" aria-hidden="true">
-            {String(pct).padStart(2, "0")}
-          </span>
-          <a className="top-cta" href="#contact">
-            Say hello ↗
+    <header className="nav-glass">
+      <Magnetic href="#hook" className="brand">
+        {PERSON.name}
+      </Magnetic>
+      <nav aria-label="Primary">
+        {LINKS.map((link) => (
+          <a
+            key={link.href}
+            href={link.href}
+            className={
+              (link.label === "Story" && current === "story") ||
+              (link.label === "Oversight" && current === "oversight") ||
+              (link.label === "Life" && current === "life") ||
+              (link.label === "Hello" && current === "hello")
+                ? "on"
+                : undefined
+            }
+          >
+            {link.label}
           </a>
-        </div>
+        ))}
+      </nav>
+      <Magnetic
+        className="btn btn-glass btn-sm"
+        href={CONTACT.oversight}
+        target="_blank"
+        rel="noreferrer"
+      >
+        Live product
+      </Magnetic>
+      <div className="nav-progress" aria-hidden="true">
+        <b style={{ width: `${Math.round(progress * 100)}%` }} />
       </div>
-      <div
-        className="progress"
-        style={{ width: `${progress * 100}%` }}
-        aria-hidden="true"
-      />
     </header>
   );
 }

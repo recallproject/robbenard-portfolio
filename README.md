@@ -23,28 +23,27 @@ npm run preview
 ## Deploy on Vercel
 
 1. Import `recallproject/robbenard-portfolio`.
-2. Framework preset: **Vite** (or leave auto-detect).
+2. Framework preset: **Vite**.
 3. Build command: `npm run build`
 4. Output directory: `dist`
-5. No environment variables required (static frontend).
-6. Attach custom domain `robbenard.com` in Vercel → Project → Settings → Domains.
+5. No environment variables required.
+6. Attach custom domain `robbenard.com`.
 
-`vercel.json` sets cache headers for hashed `/assets` and images. This is a single-page app with in-page anchors (`#work`, `#life`, `#about`, `#contact`); no server or auth.
+`vercel.json` sets cache headers for hashed `/assets` and images. Single-page app with in-page anchors (`#oversight`, `#life`, `#contact`).
 
-GitHub Pages can still work: the `CNAME` file (`robbenard.com`) lives in `public/` and is copied into `dist/`. Prefer Vercel for previews.
+`CNAME` (`robbenard.com`) lives in `public/` and is copied into `dist/`.
 
-Static work samples (unchanged from the previous site):
+Work samples:
 
 - `/docs/CRUSH_RFI_CMS-6098-NC_Benard_v3.pdf`
 - `/docs/HHS_OIG_Letter_Maxwell_March2026.pdf`
 
 ## Content TODOs
 
-Public contact is currently wired from the previous live site. Confirm before calling the rebuild final:
+Confirm before calling the rebuild final:
 
-- [ ] **Email** — `rob.benard@outlook.com` is still the address to publish (`src/content.ts`)
-- [ ] **LinkedIn** — `https://www.linkedin.com/in/robertbenard/` is still the public profile
-- [ ] Optional: add a preferred facility example URL if `https://oversightreports.com/facility/525165` should change
-- [ ] Optional: screen recordings for the AI-demo section if you want real walkthroughs instead of the interactive stepper
+- [ ] **Email** — `rob.benard@outlook.com` (`src/content.ts`)
+- [ ] **LinkedIn** — `https://www.linkedin.com/in/robertbenard/`
+- [ ] Optional: facility example URL if `https://oversightreports.com/facility/525165` should change
 
-Copy lives in the React components plus `src/content.ts`. Motion / mobile fallbacks: see `DESIGN.md`.
+Motion / mobile fallbacks: `DESIGN.md`.

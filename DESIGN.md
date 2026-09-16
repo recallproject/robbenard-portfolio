@@ -1,57 +1,53 @@
 # Design & motion
 
-Editorial, light-paper portfolio. Bold type, sticky progress nav, a cursor-reactive hero, and application-style case studies instead of a résumé wall.
+Composed cinematic reel — not a beige résumé, not a motion-soup award site.
+
+North star: **one beautiful moving thing on a calm page** (Cindy Zhu). Inspiration: Motionsites-style heroes, Swishy motion *grammar* (blur-ins, staggered type, scrubbed UI reveal), IG-story chapter pacing. Julien-level density is explicitly out.
 
 ## System
 
-- **Paper** `#f4efe4`, **ink** `#10120f`, **acid** `#d9ff57`, **signal orange** `#ff4e27`, garden green, clinic blue.
-- Display + UI: [Anybody](https://fonts.google.com/specimen/Anybody) (variable width). Meta: IBM Plex Mono.
-- No WebGL / no 3D. Canvas 2D particles, CSS parallax, Framer Motion reveals.
+- **Ice** `#eef3f9` (cool, not paper beige), **ink** `#0c1220`, **accent** `#1f6bff`, **mint** `#2ad4b8`.
+- Dark bands (`#080b12`) only for Thesis + Oversight so the reel has rhythm without constant effects.
+- Display: [Syne](https://fonts.google.com/specimen/Syne). UI: Outfit. Meta: IBM Plex Mono.
+- Glass CTAs / nav: CSS `backdrop-filter` + readable contrast. No Liquid Glass JS refraction (it fights type).
+- No custom cursor. No particle field. No HUD chrome.
 
-## Hero
+## The one graphic moment
 
-- Oversized cutout portrait (`public/images/hero-stethoscope.jpg`) on the light field.
-- Canvas wireframe / particles sit under type + portrait.
-- **Pointer (fine hover):** nodes drift, nearby edges pull toward the cursor, orange “aim” ring. Digital chips (ICU / Oakland / Oversight) spring a few pixels with the pointer.
-- **Touch / coarse pointer:** idle drift only. No cursor ring, no hover preview on the work index.
-- Portrait is a transparent WebP cutout (`public/images/hero-stethoscope.webp`) so it sits on paper without a studio box. Type overlaps it on desktop.
+Hero only: a slow ice → sky → mint **shader wash** (`src/components/HeroGradient.tsx`).
 
-## Scroll
+This is the ShaderGradient language ([ruucm/shadergradient](https://github.com/ruucm/shadergradient)) implemented as a ~2KB WebGL plane — not the React Three Fiber package. Installing `@shadergradient/react` pulled Three / Expo and failed React 19.3 peer resolution; a dedicated fragment shader keeps Lighthouse sane and still gives the soft cinematic field.
 
-- Sticky nav + orange progress bar + `00–99` counter.
-- Section heads, Oversight case, life photos reveal via Framer Motion `whileInView` (once).
-- Life photos: CSS scale/translate on hover (desktop). Green “GROW” field uses a static type watermark, not a 3D scene.
-- Marquee ticker is CSS-only.
+- Desktop: slow `uTime`, light grain.
+- Mobile / coarse pointer: **one static frame** (no rAF).
+- `prefers-reduced-motion`: static frame.
+- Hidden tab: rAF skips draws.
 
-## Oversight marquee
+No R3F float, no liquid-metal logo, no second WebGL scene.
 
-Featured case, not a list row. Right column is a CSS/SVG-ish **Facility Brief mock**: browser chrome, scanline, tabbed Snapshot / Staffing / Brief, count-up stats from the live public example (Samaritan Nursing and Rehab, CCN 525165), `$29` price, link out to the live facility page.
+## Motion grammar (Swishy, used quietly)
 
-## Work index
+- Hero type: blur + rise, staggered by line (Framer Motion).
+- Section heads: same reveal, `once`.
+- Thesis: ScrollTrigger pin + word stagger (desktop only).
+- Bedside: one sticky timeline; scenes swap on scrub. Buttons still work.
+- Oversight: **the** set piece — pinned scrub. Facility Brief mock website-reveals (`--p` drives rise, unblur, stats, $29 sheet, live CTA).
+- Lenis on fine-pointer desktops only. Native scroll on touch / reduced motion.
 
-Numbered rows with a ghost preview that follows the cursor (desktop only). Each row includes a **live-build demo**:
+## Mobile & reduced motion
 
-- SUD warm-handoff: clickable mock queue (no PHI).
-- AI demos: problem → build → what changes stepper.
+- No pin/scrub under `960px` or `hover: none`. Chapters stack; Oversight shows the finished Brief.
+- WebGL hero does not animate on coarse pointers.
+- CSS kill-switch: no animation / transition when `prefers-reduced-motion: reduce`.
 
-## Reduced motion
+## Chapters
 
-`MotionConfig reducedMotion="user"` plus a CSS `@media (prefers-reduced-motion: reduce)` kill-switch:
+1. Hook — portrait + shader wash + one line.
+2. Thesis — one sentence.
+3. Bedside — three scenarios (ICU, consult, habit).
+4. Build — small interactive console (no PHI).
+5. Oversight — scroll-scrubbed Facility Brief, live link.
+6. Labs — warm-handoff + AI stepper.
+7. Life / Hello — photos + CTAs.
 
-- No marquee / pulse / scanline / seed float.
-- Particles draw a static field (no rAF loop).
-- No scroll-smooth, no hover parallax.
-- Count-ups jump to the final number.
-
-Hidden-tab: particle rAF pauses.
-
-## Mobile performance
-
-- Particle count ~26 on coarse pointers, DPR capped at 1.
-- Hover preview unmounted via CSS (`display: none` under `1050px` and `hover: none`).
-- No Lenis / no smooth-scroll library — native scrolling.
-- Images are compressed JPEGs in `public/images`. Life photos are CSS `object-fit` crops, not extra JS.
-
-## Assets not used
-
-The prior HTML draft embedded a Getty World Cup photo. It is **not** in this rebuild (copyright). World Cup flag-carrying stays in copy + the ticker only.
+Copy TODOs for email / LinkedIn stay in `src/content.ts`.

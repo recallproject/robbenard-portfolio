@@ -1,80 +1,72 @@
-import { motion } from "framer-motion";
+import { CONTACT } from "../content";
+import Magnetic from "./Magnetic";
+import Reveal from "./Reveal";
 
 const SNAPS = [
-  {
-    src: "/images/life-kayak.jpg",
-    alt: "Robert smiling from a kayak on the Bay",
-    cap: "Paddles the Bay",
-  },
-  {
-    src: "/images/life-corn.jpg",
-    alt: "Freshly harvested ears of corn in front of tall stalks",
-    cap: "Grew this",
-  },
-  {
-    src: "/images/life-dogs.jpg",
-    alt: "Oscar and Gizmo sitting together by the front door",
-    cap: "They run the household",
-  },
-  {
-    src: "/images/life-patio.jpg",
-    alt: "Garden patio with sunflowers, bougainvillea, and bright blue chairs",
-    cap: "Always growing",
-  },
+  { src: "/images/life-kayak.jpg", alt: "Robert smiling from a kayak on the Bay", cap: "Paddle" },
+  { src: "/images/life-corn.jpg", alt: "Freshly harvested ears of corn in front of tall stalks", cap: "Corn" },
+  { src: "/images/life-dogs.jpg", alt: "Oscar and Gizmo sitting together by the front door", cap: "Household" },
+  { src: "/images/life-patio.jpg", alt: "Garden patio with sunflowers, bougainvillea, and bright blue chairs", cap: "Garden" },
 ];
-
-const SEEDS = ["Corn", "Tomatillos", "Titan sunflowers", "Software", "Ideas"];
 
 export default function Life() {
   return (
-    <section className="grow" id="life" aria-labelledby="life-title">
-      <div className="wrap">
-        <motion.div
-          className="grow-head"
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.7 }}
-        >
-          <div className="eyebrow">02 / Off the clock</div>
-          <div>
-            <h2 id="life-title">
-              I grow
-              <br />
-              things.
-            </h2>
-            <p className="grow-intro">
-              <strong>Corn, tomatillos, titan sunflowers, software, ideas.</strong>{" "}
-              I like starting with possibility, getting my hands dirty, and
-              seeing what happens. Also: paddling the Bay, and once carrying a
-              World Cup flag onto the pitch.
-            </p>
-          </div>
-        </motion.div>
-
-        <div className="photo-strip" aria-label="Life outside work">
-          {SNAPS.map((snap, i) => (
-            <motion.figure
-              className="snap"
-              key={snap.src}
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, delay: i * 0.06 }}
-            >
-              <div className="snap-media parallax">
-                <img src={snap.src} alt={snap.alt} />
-              </div>
+    <section id="life" data-reel="life" className="chapter life" aria-labelledby="life-title">
+      <Reveal>
+        <p className="chapter-index">07 — Life</p>
+        <h2 id="life-title">Garden. Paddle. Flag.</h2>
+        <p className="lede">
+          Corn, tomatillos, titan sunflowers, software, ideas. I like starting
+          with possibility and getting my hands dirty. Also: paddling the Bay,
+          and once carrying a World Cup flag onto the pitch.
+        </p>
+      </Reveal>
+      <div className="life-grid" aria-label="Life outside work">
+        {SNAPS.map((snap, i) => (
+          <Reveal key={snap.src} delay={i * 0.05} className="life-shot">
+            <figure>
+              <img src={snap.src} alt={snap.alt} />
               <figcaption>{snap.cap}</figcaption>
-            </motion.figure>
-          ))}
-        </div>
+            </figure>
+          </Reveal>
+        ))}
+      </div>
 
-        <div className="seed-line" aria-label="Things Robert grows">
-          {SEEDS.map((seed) => (
-            <span key={seed}>{seed}</span>
-          ))}
-        </div>
+      <div className="contact-block" id="contact">
+        <Reveal>
+          <p className="chapter-index">Hello</p>
+          <h2>Make something useful.</h2>
+          <p className="lede">
+            Clinical AI, healthcare product, public-data ideas that should not
+            stay in a deck. Thoughtful conversations only.
+          </p>
+          <div className="contact-row">
+            <Magnetic className="btn btn-ink" href={`mailto:${CONTACT.email}`}>
+              {CONTACT.email}
+            </Magnetic>
+            <Magnetic
+              className="btn btn-ghost-dark"
+              href={CONTACT.linkedin}
+              target="_blank"
+              rel="noreferrer"
+            >
+              LinkedIn
+            </Magnetic>
+            <Magnetic
+              className="btn btn-ghost-dark"
+              href={CONTACT.oversight}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Oversight
+            </Magnetic>
+          </div>
+          <footer className="site-foot">
+            <span>Robert Benard / NP + builder</span>
+            <span>Oakland · Bay Area</span>
+            <span>Email / LinkedIn TODOs in src/content.ts</span>
+          </footer>
+        </Reveal>
       </div>
     </section>
   );

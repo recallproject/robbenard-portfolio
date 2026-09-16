@@ -31,28 +31,13 @@ const SEED: Card[] = [
 export default function HandoffDemo() {
   const [cards, setCards] = useState(SEED);
 
-  const move = (id: string) => {
-    setCards((list) =>
-      list.map((card) =>
-        card.id === id
-          ? {
-              ...card,
-              status: card.status === "queue" ? "connected" : "queue",
-            }
-          : card
-      )
-    );
-  };
-
   return (
-    <div className="demo">
-      <p className="demo-label">Live-build mock · no PHI</p>
+    <div className="lab">
+      <p className="lab-label">Warm-handoff mock · no PHI</p>
       <div className="handoff">
         {(["queue", "connected"] as const).map((col) => (
           <div key={col} className="handoff-col">
-            <header>
-              {col === "queue" ? "Navigator queue" : "Handed off"}
-            </header>
+            <header>{col === "queue" ? "Navigator queue" : "Handed off"}</header>
             {cards
               .filter((c) => c.status === col)
               .map((card) => (
@@ -60,7 +45,18 @@ export default function HandoffDemo() {
                   key={card.id}
                   type="button"
                   className="handoff-card"
-                  onClick={() => move(card.id)}
+                  onClick={() =>
+                    setCards((list) =>
+                      list.map((item) =>
+                        item.id === card.id
+                          ? {
+                              ...item,
+                              status: item.status === "queue" ? "connected" : "queue",
+                            }
+                          : item
+                      )
+                    )
+                  }
                 >
                   <strong>{card.label}</strong>
                   <span>{card.note}</span>

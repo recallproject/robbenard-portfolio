@@ -2,16 +2,16 @@ import { useState } from "react";
 
 const STEPS = [
   {
-    title: "The problem",
-    body: "A workflow stalls because the knowledge lives in one person’s head — dosing, follow-up, who to call. The bedside does not have time for another portal.",
+    title: "The stall",
+    body: "The protocol lives in one person’s head — dosing, follow-up, who to call. The bedside does not have time for another portal.",
   },
   {
-    title: "The build",
-    body: "Prototype the smallest tool that holds the protocol: a knowledge bot, a tracker, a report a family can finish. Test it with the person who would actually click it.",
+    title: "The smallest build",
+    body: "A knowledge bot, a tracker, a report a family can finish. Prototype it with the person who would actually click it.",
   },
   {
     title: "What changes",
-    body: "The clinician keeps judgment. The tool keeps the checklist, the source, and the next step. Less hunting. Fewer dropped threads after discharge.",
+    body: "The clinician keeps judgment. The tool keeps the checklist, the source, and the next step. Fewer dropped threads after discharge.",
   },
 ];
 
@@ -20,8 +20,8 @@ export default function AiDemo() {
   const step = STEPS[i];
 
   return (
-    <div className="demo">
-      <p className="demo-label">Scenario stepper</p>
+    <div className="lab">
+      <p className="lab-label">AI build · scenario reel</p>
       <div className="stepper">
         <div className="step-tabs">
           {STEPS.map((s, idx) => (
@@ -31,7 +31,7 @@ export default function AiDemo() {
               className={idx === i ? "on" : undefined}
               onClick={() => setI(idx)}
             >
-              0{idx + 1} {s.title}
+              0{idx + 1}
             </button>
           ))}
         </div>

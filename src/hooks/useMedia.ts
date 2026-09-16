@@ -24,3 +24,7 @@ export function usePrefersReducedMotion() {
 export function useCoarsePointer() {
   return useMediaQuery("(hover: none), (pointer: coarse)");
 }
+
+export function useDesktopPin() {
+  return useMediaQuery("(min-width: 960px) and (hover: hover)");
+}
