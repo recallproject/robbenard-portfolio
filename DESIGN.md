@@ -14,7 +14,7 @@ Editorial, light-paper portfolio. Bold type, sticky progress nav, a cursor-react
 - Canvas wireframe / particles sit under type + portrait.
 - **Pointer (fine hover):** nodes drift, nearby edges pull toward the cursor, orange “aim” ring. Digital chips (ICU / Oakland / Oversight) spring a few pixels with the pointer.
 - **Touch / coarse pointer:** idle drift only. No cursor ring, no hover preview on the work index.
-- Portrait uses CSS masking so the studio backdrop dissolves into paper.
+- Portrait is a transparent WebP cutout (`public/images/hero-stethoscope.webp`) so it sits on paper without a studio box. Type overlaps it on desktop.
 
 ## Scroll
 
