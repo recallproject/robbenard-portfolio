@@ -6,15 +6,15 @@ North star: **one beautiful moving thing on a calm page** (Cindy Zhu). Inspirati
 
 ## System
 
-- **Ice** `#eef3f9` (cool, not paper beige), **ink** `#0c1220`, **accent** `#1f6bff`, **mint** `#2ad4b8`.
-- Dark bands (`#080b12`) only for Thesis + Oversight so the reel has rhythm without constant effects.
+- Fresh cinematic palette (not the old HTML paper/beige/acid-yellow, not clinic ice-blue): **lilac-white** `#f2efff`, **ink** `#0a0612`, **violet** `#6d4aff`, **magenta** `#ff2f7a`.
+- Dark bands (`#07060c`) only for Thesis + Oversight so the reel has rhythm without constant effects.
 - Display: [Syne](https://fonts.google.com/specimen/Syne). UI: Outfit. Meta: IBM Plex Mono.
 - Glass CTAs / nav: CSS `backdrop-filter` + readable contrast. No Liquid Glass JS refraction (it fights type).
 - No custom cursor. No particle field. No HUD chrome.
 
 ## The one graphic moment
 
-Hero only: a slow ice → sky → mint **shader wash** (`src/components/HeroGradient.tsx`).
+Hero only: a slow pearl → cobalt → magenta **shader wash** (`src/components/HeroGradient.tsx`).
 
 This is the ShaderGradient language ([ruucm/shadergradient](https://github.com/ruucm/shadergradient)) implemented as a ~2KB WebGL plane — not the React Three Fiber package. Installing `@shadergradient/react` pulled Three / Expo and failed React 19.3 peer resolution; a dedicated fragment shader keeps Lighthouse sane and still gives the soft cinematic field.
 
