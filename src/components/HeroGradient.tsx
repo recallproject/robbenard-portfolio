@@ -18,13 +18,11 @@ void main(){
   float t = uTime * 0.055;
   float n = sin(uv.x * 2.6 + t) * cos(uv.y * 2.1 - t * 0.72);
   float n2 = sin((uv.x + uv.y) * 1.8 - t * 0.45);
-  vec3 ice = vec3(0.91, 0.95, 0.99);
-  vec3 sky = vec3(0.49, 0.72, 0.98);
-  vec3 mint = vec3(0.27, 0.84, 0.76);
-  vec3 ink = vec3(0.08, 0.14, 0.28);
-  vec3 col = mix(ice, sky, clamp(uv.x * 0.75 + n * 0.16, 0.0, 1.0));
-  col = mix(col, mint, clamp(uv.y * 0.42 + n2 * 0.12, 0.0, 1.0));
-  col = mix(col, ink, 0.04 * (1.0 - uv.y));
+  vec3 ice = vec3(0.93, 0.96, 1.0);
+  vec3 sky = vec3(0.35, 0.62, 0.98);
+  vec3 mint = vec3(0.12, 0.78, 0.72);
+  vec3 col = mix(ice, sky, clamp(uv.x * 0.95 + n * 0.22, 0.0, 1.0));
+  col = mix(col, mint, clamp((1.0 - uv.y) * 0.55 + n2 * 0.16, 0.0, 1.0));
   float g = fract(sin(dot(uv * uRes * 0.35, vec2(12.9898, 78.233))) * 43758.5453);
   col += (g - 0.5) * 0.035 * uMotion;
   gl_FragColor = vec4(col, 1.0);
@@ -52,9 +50,10 @@ export default function HeroGradient() {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const gl = canvas.getContext("webgl", {
-      alpha: false,
+      alpha: true,
       antialias: false,
       powerPreference: "low-power",
+      premultipliedAlpha: false,
     });
     if (!gl) return;
 
@@ -68,6 +67,8 @@ export default function HeroGradient() {
     gl.linkProgram(program);
     if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return;
     gl.useProgram(program);
+    gl.clearColor(0.93, 0.96, 1.0, 0.0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
 
     const buf = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, buf);
